@@ -191,3 +191,93 @@ Opening browser and trying to access server’s Public IP followed by port 5000:
 
 ### Changing directory to /Todo/ and installing Mongoose
 
+`cd ~/Todo/`
+
+`npm install mongoose`
+
+![changing dir and installing mongoose](./images/cd-install-mongoose.png)
+
+### Creating new folder 'models'
+
+`mkdir models`
+
+![creating folder 'models'](./images/mkdir-models.png)
+
+### Changing directory into the newly created ‘models’ folder
+
+`cd models`
+
+![changing directory into folder 'models'](./images/cd-models.png)
+
+### creating a file named todo.js inside models folder
+
+`touch todo.js`
+
+![creating todo.js](./images/touch-todojs.png)
+
+# All three commands above can be defined in one line to be executed consequently with help of && operator, like this:
+
+`mkdir models && cd models && touch todo.js`
+### Opening created file with `vim todo.js`, then inserting and saving the code below:
+
+![vim editing todo.js](./images/vim-todojs.png)
+
+![code insertion and save](./images/vim-code.png)
+
+`const mongoose = require('mongoose');`
+`const Schema = mongoose.Schema;`
+
+`//create schema for todo`
+`const TodoSchema = new Schema({`
+`action: {`
+`type: String,`
+`required: [true, 'The todo text field is required']`
+`}`
+`})`
+
+`//create model for todo`
+`const Todo = mongoose.model('todo', TodoSchema);`
+
+`module.exports = Todo;`
+
+### Now we need to update routes from the file api.js in ‘routes’ directory to make use of the new model.
+
+### Changing directory to routes
+
+![changing directory to the routes folder](./images/cd-todo-routes.png)
+
+### In Routes directory, api.js will be opened with `vim api.js`, the code contained will be deleted with `:%d` command, then the code below will be entered and saved:
+
+![updating api.js file](./images/vim-apijs.png)
+
+`const express = require ('express');`
+`const router = express.Router();`
+`const Todo = require('../models/todo');`
+
+`router.get('/todos', (req, res, next) => {`
+
+`//this will return all the data, exposing only the id and action field to the client`
+`Todo.find({}, 'action')`
+`.then(data => res.json(data))`
+`.catch(next)`
+`});`
+
+`router.post('/todos', (req, res, next) => {`
+`if(req.body.action){`
+`Todo.create(req.body)`
+`.then(data => res.json(data))`
+`.catch(next)`
+`}else {`
+`res.json({`
+`error: "The input field is empty"`
+`})`
+`}`
+`});`
+
+`router.delete('/todos/:id', (req, res, next) => {`
+`Todo.findOneAndDelete({"_id": req.params.id})`
+`.then(data => res.json(data))`
+`.catch(next)`
+`})`
+
+`module.exports = router;`
