@@ -201,7 +201,7 @@ Opening browser and trying to access server’s Public IP followed by port 5000:
 
 `mkdir models`
 
-![creating folder 'models'](./images/mkdir-models.png)
+![creating folder 'models'](./images/mkdirr-models.png)
 
 ### Changing directory into the newly created ‘models’ folder
 
@@ -281,3 +281,95 @@ Opening browser and trying to access server’s Public IP followed by port 5000:
 `})`
 
 `module.exports = router;`
+
+In the index.js file, we specified process.env to access environment variables, but we have not yet created this file. So we need to do that now.
+### Changing directory to Todo folder:
+
+`cd Todo`
+
+![Changing directory to ToDo](./images/cd-to-do.png)
+
+### Creating a file in Todo directory and naming it .env. 
+
+`touch .env`
+
+![Creating .env file](./images/touch-env.png)
+
+### Using vi editor to open and edit the .env file
+
+`vi .env`
+
+![editing .env file](./images/vi-env.png)
+
+### Adding and saving database connection string below to the .env file:
+
+`DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'`
+
+### Where <username>, <password>, <network-address> and <database> according to this setup
+
+### To update the `index.js` to reflect the use of `.env` so that `Node.js` can connect to the database.
+
+### deleting existing content in the file, and updating it with the entire code below.
+
+`vim index.js`
+
+![editing index.js file](./images/vim-index.png)
+
+`const express = require('express');`
+`const bodyParser = require('body-parser');`
+`const mongoose = require('mongoose');`
+`const routes = require('./routes/api');`
+`const path = require('path');`
+`require('dotenv').config();`
+
+`const app = express();`
+
+`const port = process.env.PORT || 5000;`
+
+`//connect to the database`
+`mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })`
+`.then(() => console.log(`Database connected successfully`))`
+`.catch(err => console.log(err));`
+
+`//since mongoose promise is depreciated, we overide it with node's promise`
+`mongoose.Promise = global.Promise;`
+
+`app.use((req, res, next) => {`
+`res.header("Access-Control-Allow-Origin", "\*");`
+`res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,` `Content-Type, Accept");`
+`next();`
+`});`
+
+`app.use(bodyParser.json());`
+
+`app.use('/api', routes);`
+
+`app.use((err, req, res, next) => {`
+`console.log(err);`
+`next();`
+`});`
+
+`app.listen(port, () => {`
+`console.log(`Server running on port ${port}`)`
+`});`
+### Start server using the command:
+
+`node index.js`
+
+![updating api.js file](./images/databasse-connected-successfully.png)
+
+### opening Postman to create a POST request to the API `http://3.91.6.77:5000/api/todos`. This request sends a new task to our To-Do list so the application could store it in the database.
+
+### Note: we set header key Content-Type as application/json
+
+![Postman posts request](./images/post-api.png)
+
+![Postman get request](./images/get-api.png)
+
+### By now you have tested backend part of our To-Do application and have made sure that it supports all three operations we wanted:
+
+### 1. Display a list of tasks - HTTP GET request
+### 2. Add a new task to the list – HTTP POST request
+### 3. Delete an existing task from the list – HTTP DELETE request
+
+
