@@ -366,7 +366,7 @@ In the index.js file, we specified process.env to access environment variables, 
 
 ![Postman get request](./images/get-api.png)
 
-### By now you have tested backend part of our To-Do application and have made sure that it supports all three operations we wanted:
+### By now we have tested backend part of the To-Do application and have made sure that it supports all three operations wanted:
 
 ### 1. Display a list of tasks - HTTP GET request
 ### 2. Add a new task to the list – HTTP POST request
