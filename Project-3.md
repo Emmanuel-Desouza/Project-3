@@ -29,3 +29,22 @@
 ![Installing node.js](./images/install-nodejs.png)
 
 ## The command above installs both nodejs and npm.
+
+### Installing ExpressJs
+
+`npm install express`
+
+![Installing ExpressJs](./images/install-express.png)
+
+### creating a file index.js with command:
+
+`touch index.js`
+
+![Creating index file](./images/create-indexjs.png)
+
+### Running 'ls' to confirm just created file in present working directory
+
+`ls`
+
+![Confirming index file](./images/ls-index.png)
+
