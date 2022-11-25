@@ -361,15 +361,29 @@ In the index.js file, we specified process.env to access environment variables, 
 ### opening Postman to create a POST request to the API `http://3.91.6.77:5000/api/todos`. This request sends a new task to our To-Do list so the application could store it in the database.
 
 ### Note: we set header key Content-Type as application/json
+### Post request on Postman
+![Postman posts request](./images/post-postman.png)
 
-![Postman posts request](./images/post-api.png)
+### Get request on Postman
 
-![Postman get request](./images/get-api.png)
+![Postman get request](./images/get-postman.png)
 
+### Delete request on Postman
+
+![Postman delete request](./images/delete-request-postman.png)
 ### By now we have tested backend part of the To-Do application and have made sure that it supports all three operations wanted:
 
 ### 1. Display a list of tasks - HTTP GET request
 ### 2. Add a new task to the list – HTTP POST request
 ### 3. Delete an existing task from the list – HTTP DELETE request
+
+### using the create-react-app command to scaffold our app, to start out with the frontend of the To-do app
+
+`npx create-react-app client`
+
+![Installing create-react-app](./images/install-npx.png)
+
+
+
 
 
