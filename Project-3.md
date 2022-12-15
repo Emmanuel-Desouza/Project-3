@@ -406,7 +406,7 @@ In the index.js file, we specified process.env to access environment variables, 
 
 `cd Todo`
 
-![changing directory to Todo folder](./images/cd-Todo2.png)
+![changing directory to Todo folder](./images/cd-todo2.png)
 
 ### Opening package.json file in Todo directory and updating the code as stated above
 
